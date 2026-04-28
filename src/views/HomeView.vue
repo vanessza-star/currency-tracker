@@ -11,30 +11,31 @@
       class="search-input"
     />
 
-    <p v-if="store.rates.length">
-      Останнє оновлення: {{ store.rates[0].exchangedate }} о {{ lastUpdatedTime }}
-</p>
-    <div v-else-if="store.error" class="error">
-      {{ store.error }}
-    </div>
+    <div v-if="store.loading" class="status">Завантажуємо актуальні курси...</div>
+    
+    <div v-else-if="store.error" class="error">{{ store.error }}</div>
 
-    <div v-else class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Валюта</th>
-            <th>Код</th>
-            <th>Курс (грн)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="rate in filteredRates" :key="rate.cc">
-            <td>{{ rate.txt }}</td>
-            <td>{{ rate.cc }}</td>
-            <td><strong>{{ rate.rate.toFixed(2) }}</strong></td>
-          </tr>
-        </tbody>
-      </table>
+    <div v-else-if="store.rates.length">
+      <p>Останнє оновлення: {{ store.rates[0].exchangedate }} о {{ lastUpdatedTime }}</p>
+      
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Валюта</th>
+              <th>Код</th>
+              <th>Курс (грн)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="rate in filteredRates" :key="rate.cc">
+              <td>{{ rate.txt }}</td>
+              <td>{{ rate.cc }}</td>
+              <td><strong>{{ rate.rate.toFixed(2) }}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
