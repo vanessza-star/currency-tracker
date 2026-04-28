@@ -13,12 +13,7 @@
 
     <p v-if="store.rates.length">
       Останнє оновлення: {{ store.rates[0].exchangedate }} о {{ lastUpdatedTime }}
-    </p>
-
-    <div v-if="store.loading" class="status">
-      Завантажуємо актуальні курси...
-    </div>
-
+</p>
     <div v-else-if="store.error" class="error">
       {{ store.error }}
     </div>
