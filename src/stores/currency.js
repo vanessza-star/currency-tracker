@@ -5,8 +5,7 @@ export const useCurrencyStore = defineStore('currency', {
   state: () => ({
     rates: [],
     loading: false,
-    error: null,
-    favorites: JSON.parse(localStorage.getItem('favorites')) || []
+    error: null
   }),
 
   actions: {
@@ -25,22 +24,6 @@ export const useCurrencyStore = defineStore('currency', {
       } finally {
         this.loading = false
       }
-    },
-
-    toggleFavorite(rate) {
-      const index = this.favorites.findIndex(f => f.cc === rate.cc)
-
-      if (index === -1) {
-        this.favorites.push(rate)
-      } else {
-        this.favorites.splice(index, 1)
-      }
-
-      localStorage.setItem('favorites', JSON.stringify(this.favorites))
-    },
-
-    isFavorite(code) {
-      return this.favorites.some(f => f.cc === code)
     }
   }
 })
